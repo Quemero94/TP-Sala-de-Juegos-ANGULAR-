@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Juego } from '../clases/juego';
+import { Juego } from 'src/app/clases/juego';
 import { JuegoAdivina } from '../clases/juego-adivina';
 import { MiHttpService } from './mi-http/mi-http.service';
 import { from } from 'rxjs';
