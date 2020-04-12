@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+/*footer {
+    color: white;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+.margin-cont {
+    margin-top: 80px;
+    z-index: 0;
+}*/
+
+
+/*
+Sirve para poner 3 puntos automaticamente
+*/
+
+.block-ellipsis {
+  font-size: 13px;
+  display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  height: 110px;
+  margin: 0 auto;
+  line-height: 1;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
