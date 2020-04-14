@@ -3,80 +3,42 @@
 
 
 
-<div class="container">
+<main role="main">
 
-  <ul class="list-group">
-    <li class="list-group-item list-group-item-danger">
 
-      <div class="media-body">
-        <div class="hero-text">
-          <h4>Menú Principal</h4>
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Bienvenidos a MINIJUEGOS</h1>
+      <p class="lead text-muted">Somos una comunidad de jugadores cuyos miembros son mayormente de países americanos de
+        habla hispana como Argentina, Chile, Uruguay, Venezuela, Colombia, México, Ecuador, Costa Rica, Puerto Rico,
+        Perú, Panamá y un largo Etc.</p>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let menu of mPrincipal">
+          <div class="card mb-4 box-shadow ">
+            <img class="card-img-top" src="{{ menu.img }}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{ menu.nombre }}</h5>
+              <div class=" d-md-block">
+                <p class="card-text block-ellipsis">{{ menu.descripcion }}</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <button type="button" routerLink="{{menu.link}}" class="btn btn-block btn-warning">
+                  Ver más...
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
 
-
-    </li>
-    <li class="list-group-item list-group-item-success">
-      <a routerLink="/Juegos">
-        <div class="media">
-          <div class="media-left">
-            <img src="./assets/imagenes/saladejuegos.png" class="media-object imagenDeMenu">
-          </div>
-          <div class="media-body">
-            <h4 class="media-heading">Juegos</h4>
-            <p>El método lúdico es un conjunto de estrategias diseñadas para crear un ambiente de armonía en los
-              estudiantes que están inmersos en el proceso de aprendizaje. Este método busca que los alumnos se apropien
-              de los temas impartidos por los docentes utilizando el juego.</p>
-          </div>
-
-        </div>
-      </a>
-    </li>
-    <li class="list-group-item list-group-item-info">
-      <a routerLink="/Listado">
-        <div class="media">
-          <div class="media-left">
-            <img src="./assets/imagenes/listado.jpg" class="media-object imagenDeMenu">
-          </div>
-          <div class="media-body">
-            <h4 class="media-heading">Listados de resultados</h4>
-            <p>Los listados de los resultados con ordenamiento y busqueda</p>
-          </div>
-
-        </div>
-      </a>
-    </li>
-    <li class="list-group-item list-group-item-warning">
-      <a routerLink="/Juegos">
-        <div class="media">
-          <div class="media-left">
-            <img src="./assets/imagenes/Configuracion.png" class="media-object imagenDeMenu">
-          </div>
-          <div class="media-body">
-            <h4 class="media-heading">Configuraci&oacute;n</h4>
-            <p>Ajustes de la aplicacion y los métodos de autentificación</p>
-          </div>
-
-        </div>
-      </a>
-    </li>
-    <li class="list-group-item list-group-item-warning">
-      <a routerLink="/Jugadores">
-        <div class="media">
-          <div class="media-left">
-            <img src="./assets/imagenes/jugadores.png" class="media-object imagenDeMenu">
-          </div>
-          <div class="media-body">
-            <h4 class="media-heading">Jugadores</h4>
-            <p>Listado de jugadores</p>
-          </div>
-
-        </div>
-      </a>
-    </li>
-
-
-  </ul>
-</div>
+</main>
 
 <app-footer></app-footer>
