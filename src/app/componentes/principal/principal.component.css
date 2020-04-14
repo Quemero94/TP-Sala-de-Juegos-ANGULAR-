@@ -1,13 +1,25 @@
-.imagenDeMenu{
-width: 80px;
-height: 70px;
+.imagenDeMenu {
+  width: 80px;
+  height: 70px;
 }
 
 .hero-text {
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #100000;
-    }
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #100000;
+}
+
+#neon {
+  /* Full height */
+  /*height: 100%;*/
+  background: linear-gradient(to right, rgb(15, 32, 39), rgb(32, 58, 67), rgb(44, 83, 100));
+
+  /* Center and scale the image nicely 
+  background-image: url('./assets/imagenes/neon.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;*/
+}
