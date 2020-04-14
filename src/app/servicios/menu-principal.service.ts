@@ -33,7 +33,15 @@ export class MenuPrincipalService {
     }
   ];
 
-  constructor() { }
+
+
+  constructor() {
+    console.log("Servicio listo para usar");
+  }
+
+  getMenuPrincipal() {
+    return this.mPrincipal;
+  }
 }
 
 

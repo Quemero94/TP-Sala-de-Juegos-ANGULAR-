@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Principal, MenuPrincipalService } from '../../servicios/menu-principal.service';
 
 
 @Component({
@@ -7,15 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./principal.component.css']
 })
 export class PrincipalComponent implements OnInit {
- public status: any = {
+  public status: any = {
     isFirstOpen: true,
     isFirstDisabled: false
   };
-  constructor() {  }
+
+  mPrincipal: Principal[] = [];
+
+  constructor(private _menuPrincipal: MenuPrincipalService) { }
 
   ngOnInit() {
+    this.mPrincipal = this._menuPrincipal.getMenuPrincipal();
+
+    console.log(this.mPrincipal);
   }
 
- 
+
 
 }
