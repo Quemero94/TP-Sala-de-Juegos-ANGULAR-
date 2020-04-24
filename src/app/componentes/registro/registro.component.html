@@ -1,4 +1,34 @@
-<body>
+<body class="text-center col-lg-12">
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="form-signin" style="padding-top: 170px; ">
+    <img class="mb-4" src="./assets/imagenes/user.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Crear nueva cuenta</h1>
+    <span class="text-danger" *ngIf="f.submitted && f.controls['email'].errors">El correo es obligatorio</span>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" name="email" class="form-control" placeholder="Email address" [(ngModel)]="usuario.email" email
+      required autofocus>
+    <label for="inputEmail" class="sr-only">Nombre y Apellido</label>
+    <span class="text-danger" *ngIf="f.submitted && f.controls['nombre'].errors">El nombre es obligatorio</span>
+    <input type="text" name="nombre" class="form-control" placeholder="Nombre y Apellido" [(ngModel)]="usuario.nombre"
+      minlength="2" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <span class="text-danger" *ngIf="f.submitted && f.controls['password'].errors">Al menos 6 letras</span>
+    <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="usuario.password"
+      minlength="6" required>
+    <div class="checkbox mb-3">
+      <label>
+        <input [(ngModel)]="recordarme" id="recordarme" name="recordarme" type="checkbox" value="remember-me">
+        Recuedame
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+    <a routerLink="/Login">¿Ya tienes cuentas? / Ingresar</a>
+    <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
+  </form>
+</body>
+
+
+
+<!--<body>
   <div class="jumbotron">
     <h2 id="terminos">Terminos y condiciones</h2>
     <p>El Gobierno de la República Argentina (en adelante el “Gobierno Nacional”) no es responsable por los daños y perjuicios que puedan surgir, incluyendo, sin límite, daños, pérdidas o gastos directos, indirectos, que surjan en relación con el uso de los Activos Digitales o la imposibilidad de uso, en relación con cualquier falla en el vencimiento, error, omisión, interrupción, defecto, demora en la operación o transmisión, virus de computadora o falla del sistema de línea, aún en el caso de que el Gobierno Nacional o sus representantes fueran informados sobre la posibilidad de dichos daños, pérdidas o gastos.</p>
@@ -44,4 +74,4 @@
   }
   </script>
   
-  </body>
+  </body>-->
