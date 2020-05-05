@@ -25,15 +25,15 @@
 
       <ul class="navbar-nav mr-left">
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" routerLink="/Login"> <i class="fa fa-sign-in"></i> Ingresar</a>
-        </li>
+        </li>-->
         <li class="nav-item">
           <a class="nav-link" routerLink="/Registro"> <i class="fa fa-user-plus"></i> Registrarse</a>
         </li>
         <li class="nav-item">
-          <!--Agregar al button (click)="salir()"-->
-          <button class="btn btn-outline-warning"><i class="fa fa-sign-out"></i> Salir</button>
+
+          <button class="btn btn-outline-warning" (click)="salir()"><i class="fa fa-sign-out"></i> Salir</button>
         </li>
       </ul>
     </div>

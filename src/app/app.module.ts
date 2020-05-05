@@ -9,6 +9,9 @@ import { HttpClientModule } from "@angular/common/http";
 //  import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
 
+//Servicios agregados
+import { MenuPrincipalService } from "./servicios/menu-principal.service";
+
 // import { AccordionModule } from 'ngx-bootstrap';
 // agrego las clases para utilizar ruteo
 import { RouterModule, Routes } from '@angular/router';
@@ -96,7 +99,7 @@ import { FooterComponent } from './componentes/footer/footer.component';
     // importo el ruteo
     // RouterModule.forRoot(MiRuteo)
   ],
-  providers: [JuegoServiceService, MiHttpService, PaisesService, ArchivosJugadoresService, JugadoresService],
+  providers: [JuegoServiceService, MiHttpService, PaisesService, ArchivosJugadoresService, JugadoresService, MenuPrincipalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
