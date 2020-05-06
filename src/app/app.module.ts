@@ -58,6 +58,7 @@ import { AgmCoreModule } from '@agm/core';
 import { InputJugadoresComponent } from './componentes/input-jugadores/input-jugadores.component';
 import { SexoPipe } from './pipes/sexo.pipe';
 import { FooterComponent } from './componentes/footer/footer.component';
+import { OrderPipe } from './pipes/order.pipe';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { FooterComponent } from './componentes/footer/footer.component';
     JugadoresListadoComponent,
     InputJugadoresComponent,
     SexoPipe,
-    FooterComponent
+    FooterComponent,
+    OrderPipe
   ],
   imports: [
     BrowserModule,
