@@ -5,12 +5,12 @@ import { AppComponent } from './app.component';
 import { AdivinaElNumeroComponent } from './componentes/adivina-el-numero/adivina-el-numero.component';
 import { ListadoDeResultadosComponent } from './componentes/listado-de-resultados/listado-de-resultados.component';
 import { LoginComponent } from './componentes/login/login.component';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 //  import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
 
 //Servicios agregados
-import { MenuPrincipalService } from "./servicios/menu-principal.service";
+import { MenuPrincipalService } from './servicios/menu-principal.service';
 
 // import { AccordionModule } from 'ngx-bootstrap';
 // agrego las clases para utilizar ruteo
@@ -58,7 +58,27 @@ import { AgmCoreModule } from '@agm/core';
 import { InputJugadoresComponent } from './componentes/input-jugadores/input-jugadores.component';
 import { SexoPipe } from './pipes/sexo.pipe';
 import { FooterComponent } from './componentes/footer/footer.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
+
+// Firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { OrderPipe } from './pipes/order.pipe';
+
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAt9mEXE7Ocv1KaV2HwGTODOWgsHASpH08",
+  authDomain: "ercogames-81a39.firebaseapp.com",
+  databaseURL: "https://ercogames-81a39.firebaseio.com",
+  projectId: "ercogames-81a39",
+  storageBucket: "ercogames-81a39.appspot.com",
+  messagingSenderId: "1031320365351",
+  appId: "1:1031320365351:web:76701e6abafbf0e3d16102"
+};
 
 @NgModule({
   declarations: [
@@ -91,17 +111,21 @@ import { OrderPipe } from './pipes/order.pipe';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     RuteandoModule,
     HttpModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB6f8x4IjRlesQ3oETc6BXYQHVRTOlY3Ys'
     }),
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFirestoreModule
     // NgbModule.forRoot(MiRuteo),
     // importo el ruteo
     // RouterModule.forRoot(MiRuteo)
   ],
-  providers: [JuegoServiceService, MiHttpService, PaisesService, ArchivosJugadoresService, JugadoresService, MenuPrincipalService],
+  providers: [{ provide: SETTINGS, useValue: {} }, JuegoServiceService, MiHttpService, PaisesService, ArchivosJugadoresService, JugadoresService, MenuPrincipalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
