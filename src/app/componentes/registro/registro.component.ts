@@ -1,65 +1,94 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { NgForm } from "@angular/forms";
-
-import { UsuarioModel } from "../../models/usuario.model";
-import { AuthService } from "../../servicios/auth.service";
-
-import Swal from "sweetalert2";
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { AutenticacionService } from '../../servicios/autenticacion.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FirebaseService } from '../../servicios/firebase.service';
 
 @Component({
-  selector: "app-registro",
-  templateUrl: "./registro.component.html",
-  styleUrls: ["./registro.component.css"]
+  selector: 'app-registro',
+  templateUrl: './registro.component.html',
+  styleUrls: ['./registro.component.scss']
 })
 export class RegistroComponent implements OnInit {
-  /* constructor( private miConstructor:FormBuilder) { }
-  email=new FormControl('',[Validators.email]);
-  formRegistro:FormGroup=this.miConstructor.group({
-    usuario:this.email
-  });*/
+  @ViewChild('alertOk', { static: true }) alertOk: ElementRef;
+  @ViewChild('alertError', { static: true }) alertError: ElementRef;
 
-  usuario: UsuarioModel;
-  recordarme = false;
+  isLoading: boolean = false;
+  registerForm: FormGroup;
+  submitted = false;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private autenticacionService: AutenticacionService,
+    private formBuilder: FormBuilder, public firebaseService: FirebaseService) { }
 
   ngOnInit() {
-    this.usuario = new UsuarioModel();
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required],
+      acceptTerms: [false, Validators.requiredTrue]
+    }, {
+        validator: MustMatch('password', 'confirmPassword')
+      });
   }
 
-  onSubmit(form: NgForm) {
-    if (form.invalid) {
+  // para acceder facilmente a los controles del form
+  get f() { return this.registerForm.controls; }
+
+  onRegistrar() {
+    this.submitted = true;
+
+    // si es invalido nada
+    if (this.registerForm.invalid) {
       return;
     }
+    this.isLoading = true;
+    // form valido
+    this.autenticacionService.register(this.registerForm.value.email, this.registerForm.value.password)
+      .then((result) => {
+        this.isLoading = false;
+        // save user on firestore
+        this.firebaseService.addUser(this.registerForm.value.email)
+          .then(result => {
+            console.log("insert user");
+          });
+        this.onReset();
+        this.mostrarAlert(true);
+      }).catch((error) => {
+        this.isLoading = false;
+        this.onReset();
+        this.mostrarAlert(false);
+        console.info(error);
+      });
+  }
 
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: "info",
-      text: "Espere por favor..."
-    });
-    Swal.showLoading();
+  onReset() {
+    this.submitted = false;
+    this.registerForm.reset();
+  }
 
-    this.auth.nuevoUsuario(this.usuario).subscribe(
-      resp => {
-        console.log(resp);
-        Swal.close();
-
-        if (this.recordarme) {
-          localStorage.setItem("email", this.usuario.email);
-        }
-
-        this.router.navigateByUrl("/Principal");
-      },
-      err => {
-        console.log(err.error.error.message);
-        Swal.fire({
-          icon: "error",
-          title: "Error al autenticar",
-          text: err.error.error.message
-        });
-      }
-    );
+  mostrarAlert(bool: boolean) {
+    if (bool)
+      this.alertOk.nativeElement.classList.remove('d-none');
+    else
+      this.alertError.nativeElement.classList.remove('d-none');
   }
 }
 
+// custom validator to check that two fields match
+export function MustMatch(controlName: string, matchingControlName: string) {
+  return (formGroup: FormGroup) => {
+    const control = formGroup.controls[controlName];
+    const matchingControl = formGroup.controls[matchingControlName];
+
+    if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+      // return if another validator has already found an error on the matchingControl
+      return;
+    }
+
+    // set error on matchingControl if validation fails
+    if (control.value !== matchingControl.value) {
+      matchingControl.setErrors({ mustMatch: true });
+    } else {
+      matchingControl.setErrors(null);
+    }
+  }
+}

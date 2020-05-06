@@ -1,88 +1,42 @@
-<!--div style="margin: 20% auto; width: 30%;">
-  <div class="row">
-    <div class="col-lg-6">
-      Usuario
-    </div>
-    <div class="col-lg-6">
-      <input type="text"  [(ngModel)]="usuario">
-    </div>
-  </div>
-  <div class="row" style="margin-top: 5px">
-    <div class="col-lg-6">
-      Clave
-    </div>
-    <div class="col-lg-6">
-      <input type="password" [(ngModel)]="clave">
-    </div>
-  </div>
-  <div class="row" style="text-align: center; margin-top: 10px">
-    <div class="col-lg-12">
-      <button (click)="Entrar()" class="btn btn-info btn-lg" >Entrar</button>
-    </div>
-  </div>
-</div-->
+<div class="container-fluid">
 
-
-
-<div class="text-center col-lg-12">
-  <form (ngSubmit)="login(f)" #f="ngForm" class="form-signin" style="padding-top: 170px; ">
-    <img class="mb-4" src="./assets/imagenes/user.png" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Bienvenido</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <span class="text-danger" *ngIf="f.submitted && f.controls['email'].errors">El correo es obligatorio</span>
-    <input type="email" name="email" class="form-control" placeholder="Email address" [(ngModel)]="usuario.email" email
-      required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <span class="text-danger" *ngIf="f.submitted && f.controls['password'].errors">Al menos 6 letras</span>
-    <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="usuario.password"
-      minlength="6" required>
-    <div class="checkbox mb-3">
-      <label>
-        <input [(ngModel)]="recordarme" id="recordarme" name="recordarme" type="checkbox" value="remember-me">
-        Recordarme
-      </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-    <a routerLink="/Registro">¿No tienes cuenta?</a>
-    <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
-  </form>
-</div>
-
-
-
-
-
-<!-- <div class="container" >
-  <div class="jumbotron" style="padding:50px;">
-    <form action="return true;">
-      <div class="imgcontainer">
-        <img src="./assets/imagenes/login.png" alt="Avatar" class="avatar" max-width="104" >
-      </div>
-
-      <div class="container">
-        <label><b>Usuario</b></label>
-        <input type="text" placeholder="Usuario"  [(ngModel)]="usuario"  name="uname" required>
-
-        <label><b>Clave</b></label>
-        <input type="password" placeholder="Clave"  [(ngModel)]="clave" name="psw" required>
-            
-        <button *ngIf="logeando"  (click)="MoverBarraDeProgreso()" >Ingresar</button>
-       
-        <div *ngIf="!logeando" class="progress">
-            <div class="progress-bar progress-bar-info progress-bar-striped active" [class]="clase" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" [style.width]="ProgresoDeAncho" >
-              {{progresoMensaje}} - {{progreso}}%
+  <!-- Demo content-->
+  <div class="container margenes ">
+    <div class="row">
+      <div class="col-lg-10 col-xl-7 mx-auto fondo">
+        <br>
+        <img src="./assets/imagenes/iniciar-sesion.png" class="img-fluid" alt="...">
+        <br><br>
+        <form>
+          <div class="form-group mb-3">
+            <input id="inputEmail" #userEmail type="email" placeholder="Correo" required="" autofocus=""
+              class="form-control rounded-pill border-0 shadow-sm px-4">
+          </div>
+          <div class="form-group mb-3">
+            <input id="inputPassword" #userPassword type="password" placeholder="Contraseña" required=""
+              class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+          </div>
+          <div class="custom-control custom-checkbox mb-3">
+            <input id="customCheck1" type="checkbox" checked class="custom-control-input">
+            <label for="customCheck1" class="custom-control-label text-muted">Recordarme</label>
+          </div>
+          <button *ngIf="!isLoading" type="submit"
+            class="btn btn-outline-warning btn-block text-uppercase mb-2 rounded-pill shadow-sm"
+            (click)="onLogin(userEmail.value, userPassword.value)">Ingresar</button>
+          <div *ngIf="isLoading" class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
             </div>
+          </div>
+          <!-- Alert ERROR-->
+          <div class="text-center d-flex justify-content-between mt-4 text-muted">
+            <p>¿No tenes una cuenta? <a routerLink="/Registro" class="text-muted">
+                <b>Crear una Cuenta</b></a></p>
+          </div>
+        </form>
+        <div #alertError class="alert alert-danger d-none" role="alert">
+          ¡Su usuario o contraseña es incorrecto!
         </div>
-       
-        <input type="checkbox" checked="checked"> Recordar mis datos
       </div>
-
-      <div class="container" style="background-color:#f1f1f1">
-        <button type="button" class="cancelbtn">Cancelar</button>
-        <button type="button" class="aceptbtn" routerLink="/Registro" >Registrarse</button>
-        <span class="psw">Te olvidaste <a href="#">la clave?</a></span>
-      </div>
-     
-    </form>
+    </div>
   </div>
-</div> -->

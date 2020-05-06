@@ -1,64 +1,30 @@
-import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute, ParamMap } from "@angular/router";
-import { NgForm } from "@angular/forms";
-
-import { Subscription } from "rxjs";
-import { TimerObservable } from "rxjs/observable/TimerObservable";
-
-import { UsuarioModel } from "../../models/usuario.model";
-import { AuthService } from "../../servicios/auth.service";
-
-import Swal from "sweetalert2";
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { AutenticacionService } from '../../servicios/autenticacion.service';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  usuario: UsuarioModel = new UsuarioModel();
-  recordarme = true;
+  @ViewChild('alertError', { static: true }) alertError: ElementRef;
+  isLoading: boolean = false;
+  constructor(private autenticacionService: AutenticacionService) { }
 
-  constructor(private auth: AuthService, private router: Router) { }
+  ngOnInit() { }
 
-  ngOnInit() {
-    if (localStorage.getItem("email")) {
-      this.usuario.email = localStorage.getItem("email");
-      this.recordarme = true;
-    }
+  onLogin(userEmail, userPassword) {
+    this.isLoading = true;
+    this.autenticacionService.login(userEmail, userPassword).then((result) => {
+      this.isLoading = false;
+    }).catch((error) => {
+      this.isLoading = false;
+      this.mostrarAlert();
+      console.info(error);
+    });
   }
 
-  login(form: NgForm) {
-    if (form.invalid) {
-      return;
-    }
-
-    Swal.fire({
-      allowOutsideClick: false,
-      icon: "info",
-      text: "Espere por favor..."
-    });
-    Swal.showLoading();
-
-    this.auth.login(this.usuario).subscribe(
-      resp => {
-        console.log(resp);
-        Swal.close();
-
-        if (this.recordarme) {
-          localStorage.setItem("email", this.usuario.email);
-        }
-
-        this.router.navigateByUrl("/Principal");
-      },
-      err => {
-        console.log(err.error.error.message);
-        Swal.fire({
-          icon: "error",
-          title: "Error al autenticar",
-          text: err.error.error.message
-        });
-      }
-    );
+  mostrarAlert() {
+    this.alertError.nativeElement.classList.remove('d-none');
   }
 }

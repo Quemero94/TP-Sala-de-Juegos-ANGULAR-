@@ -1,77 +1,65 @@
-<body class="text-center col-lg-12">
-  <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="form-signin" style="padding-top: 170px; ">
-    <img class="mb-4" src="./assets/imagenes/user.png" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Crear nueva cuenta</h1>
-    <span class="text-danger" *ngIf="f.submitted && f.controls['email'].errors">El correo es obligatorio</span>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" name="email" class="form-control" placeholder="Email address" [(ngModel)]="usuario.email" email
-      required autofocus>
-    <label for="inputEmail" class="sr-only">Nombre y Apellido</label>
-    <span class="text-danger" *ngIf="f.submitted && f.controls['nombre'].errors">El nombre es obligatorio</span>
-    <input type="text" name="nombre" class="form-control" placeholder="Nombre y Apellido" [(ngModel)]="usuario.nombre"
-      minlength="2" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <span class="text-danger" *ngIf="f.submitted && f.controls['password'].errors">Al menos 6 letras</span>
-    <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="usuario.password"
-      minlength="6" required>
-    <div class="checkbox mb-3">
-      <label>
-        <input [(ngModel)]="recordarme" id="recordarme" name="recordarme" type="checkbox" value="remember-me">
-        Recuedame
-      </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-    <a routerLink="/Login">¿Ya tienes cuentas? / Ingresar</a>
-    <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
-  </form>
-</body>
-
-
-
-<!--<body>
-  <div class="jumbotron">
-    <h2 id="terminos">Terminos y condiciones</h2>
-    <p>El Gobierno de la República Argentina (en adelante el “Gobierno Nacional”) no es responsable por los daños y perjuicios que puedan surgir, incluyendo, sin límite, daños, pérdidas o gastos directos, indirectos, que surjan en relación con el uso de los Activos Digitales o la imposibilidad de uso, en relación con cualquier falla en el vencimiento, error, omisión, interrupción, defecto, demora en la operación o transmisión, virus de computadora o falla del sistema de línea, aún en el caso de que el Gobierno Nacional o sus representantes fueran informados sobre la posibilidad de dichos daños, pérdidas o gastos.</p>
-    <p>El Gobierno Nacional no controla ni garantiza la ausencia de virus ni de otros elementos en los contenidos que puedan producir alteraciones en su sistema informático (software y hardware) o en los documentos electrónicos y ficheros almacenados en su sistema informático.</p>
-    <p>El Gobierno Nacional no puede garantizar que la transmisión de información por parte de los Usuarios sea completamente segura. El Usuario asume este riesgo.</p>
-   
-  </div>
-  <strong><p>No leer lo anterior, es solo un ejemplo sacado de https://www.argentina.gob.ar/terminos-y-condiciones </p></strong>
-  <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Acepto</button>
-  <button  class="cancelbtn"  routerLink="/Principal" style="width:auto;">No acepto</button>
-  <div id="id01" class="modal">
-    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
-    <form class="modal-content animate" >
-      <div class="container">
-        <label><b>Email</b></label>
-        <input type="text" placeholder="Ingresa tu correo" name="email" required>
-  
-        <label><b>Clave</b></label>
-        <input type="password" placeholder="Aca la clave" name="psw" required>
-  
-        <label><b>Repita la clave</b></label>
-        <input type="password" placeholder="Aca repeti la misa clave  de arriba" name="psw-repeat" required>
-        <input type="checkbox" checked="checked">Recordar mis datos
-        <p>creando la cuenta aceptando los<a  onclick="document.getElementById('id01').style.display='none'"  >Terminos y condiciones</a>.</p>
-  
-        <div class="clearfix">
-          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Me arrepenti</button>
-          <button type="submit" class="signupbtn">Registrarme</button>
+<div class="container-fluid">
+  <!-- Demo content-->
+  <div class="container margenes">
+    <div class="row">
+      <div class="col-lg-10 col-xl-7 mx-auto fondo">
+        <br>
+        <img src="./assets/imagenes/registrarse.png" class="img-fluid" alt="...">
+        <br><br>
+        <form [formGroup]="registerForm" (ngSubmit)="onRegistrar()">
+          <div class="form-group mb-3">
+            <input type="text" formControlName="email" placeholder="Correo"
+              class="form-control rounded-pill border-0 shadow-sm px-4"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Debe ingresar email</div>
+              <div *ngIf="f.email.errors.email">Email debe ser valido</div>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <input type="password" formControlName="password" placeholder="Contraseña"
+              class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Debe ingresar contraseña</div>
+              <div *ngIf="f.password.errors.minlength">Debe contener al menos 6 caracteres</div>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <input type="password" formControlName="confirmPassword" placeholder="Repetir contraseña"
+              class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
+              [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+            <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+              <div *ngIf="f.confirmPassword.errors.required">Debe ingresar contraseña nuevamente</div>
+              <div *ngIf="f.confirmPassword.errors.mustMatch">Las contraseña deben coincidir</div>
+            </div>
+          </div>
+          <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" checked formControlName="acceptTerms" id="acceptTerms" class="form-check-input"
+              [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }" />
+            <label for="acceptTerms" class="form-check-label text-muted">Terminos y Condiciones</label>
+            <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Aceptar Terminos y Condiciones</div>
+          </div>
+          <button *ngIf="!isLoading" type="submit"
+            class="btn btn-outline-warning btn-block text-uppercase mb-2 rounded-pill shadow-sm">Registrarse</button>
+          <div *ngIf="isLoading" class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <div class="text-center d-flex justify-content-between mt-4 text-muted">
+            <p>Si ya tenes cuenta <a routerLink="/Login" class=" text-muted">
+                <b>Iniciar Sesión</b></a></p>
+          </div>
+        </form>
+        <!-- Alert OK-->
+        <div #alertOk class="alert alert-dark d-none" role="alert">
+          ¡Registrado! <a routerLink="/Login" class="alert-link">Incia sesión</a>
+        </div>
+        <!-- Alert ERROR-->
+        <div #alertError class="alert alert-danger d-none" role="alert">
+          ¡Error al procesar información!
         </div>
       </div>
-    </form>
+    </div>
   </div>
-  
-  <script>
-  // Get the modal
-  var modal = document.getElementById('id01');
-  
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
-  }
-  </script>
-  
-  </body>-->
