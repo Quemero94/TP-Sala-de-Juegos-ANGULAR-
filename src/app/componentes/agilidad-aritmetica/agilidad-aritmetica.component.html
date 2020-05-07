@@ -1,38 +1,31 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<!--app-menu></app-menu-->
-<!-- index.html -->
+<app-jumbotron titulo="Adivina el número" subtitulo="Adivina el numero del 1 al 100. Usa las pistas que te damos.">
+</app-jumbotron>
+<div class="contenedor">
+  <img src="./assets/imagenes/heart.png" class="small" alt="...">
+  <div id="countScore"><span>{{nuevoJuego.lifePlayer}}</span></div>
+  <div id="canvas">
+    <div id="words">
+      <h1 class="question text-center">{{nuevoJuego.question}}</h1>
+    </div>
+  </div>
+  <form id="control">
+    <div>
+      <input type="text" class="form-control" id="answer" name="answer" placeholder=""
+        [(ngModel)]="nuevoJuego.userAnswer">
+    </div><br> <br>
+    <div>
+      <button class="btn btn-info text-uppercase mb-2 rounded-pill shadow-sm" *ngIf="nuevoJuego.lifePlayer > 0"
+        (click)="nuevoJuego.verificar()" id="submitbutton" style="margin-right: 10px">Responder</button>
+      <button class="btn btn-info text-uppercase mb-2 rounded-pill shadow-sm" *ngIf="nuevoJuego.lifePlayer > 0"
+        (click)="nuevoJuego.skipQuestion()">Siguiente</button>
+    </div>
 
-<!--
-<form name="juego">
-<ul>
-   <li>
-   Primer número: <input [(ngModel)]="nuevoJuego.numeroIngresado" placeholder="ingrese numero" name="numeroIngresado" type="text" class="form-control" style="width:50%" readonly/>
-  
-  </li>
-  <li>
-   Operador: <input [(ngModel)]="nuevoJuego.numeroIngresado" placeholder="ingrese numero" name="numeroIngresado" type="text" class="form-control" style="width:50%" readonly/>
-    
-  </li>
-  <li>
-   Segundo número: <input [(ngModel)]="nuevoJuego.numeroIngresado" placeholder="ingrese numero" name="numeroIngresado" type="text" class="form-control" style="width:50%" readonly/>
-    
-  </li>
-  <li>
-    Respuesta: <input [(ngModel)]="nuevoJuego.numeroIngresado" placeholder="ingrese numero" name="numeroIngresado" type="text" class="form-control" style="width:50%"/>
-     
-   </li>
-  <li>
-    <h2 [hidden]="ocultarVerificar" ><button (click)="verificar()" class="btn btn-success btn-lg">Verificar {{Tiempo}} </button></h2>
-  </li>
-  <li>
-    <h2 [hidden]="!ocultarVerificar"><button  (click)="NuevoJuego()"  class="btn btn-info btn-lg">Nuevo</button></h2>
-  </li>
-  <li>
-    <h2><p><i class="fa fa-spinner fa-spin"></i>Esperando numero...</p></h2>
-
-    <h3 [hidden]="!nuevoJuego.gano">usted adivino el número</h3>
-    <h3 [hidden]="nuevoJuego.gano">usted aún no gano </h3>
-  </li>
-</ul>
-
-</form>-->
+    <div *ngIf="nuevoJuego.lifePlayer === 0">
+      <h1 class="question text-center">Perdiste :(</h1>
+      <button class="btn btn-info text-uppercase mb-2 rounded-pill shadow-sm" (click)="newGame()">Jugar
+        de nuevamente</button>
+    </div>
+    <h4 class="text-center">Puntos: {{nuevoJuego.scorePlayer}}</h4>
+  </form>
+</div>
+<app-footer></app-footer>
