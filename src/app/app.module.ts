@@ -67,6 +67,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore';
 import { OrderPipe } from './pipes/order.pipe';
+import { JumbotronComponent } from './componentes/jumbotron/jumbotron.component';
 
 
 
@@ -106,7 +107,8 @@ const firebaseConfig = {
     InputJugadoresComponent,
     SexoPipe,
     FooterComponent,
-    OrderPipe
+    OrderPipe,
+    JumbotronComponent
   ],
   imports: [
     BrowserModule,

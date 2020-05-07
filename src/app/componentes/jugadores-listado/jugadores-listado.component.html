@@ -1,29 +1,26 @@
-<ul class="nav nav-pills nav-justified">
-  <li class="active"><a routerLink="/Principal">Ir a inicio</a></li>
-  <li><a (click)="TraerTodos()">Todos los jugadores</a></li>
-  <li><a (click)="TraerGanadores()">Los ganadores</a></li>
-  <li><a (click)="TraerPerdedores()">Los perdedores</a></li>
-</ul>
+<app-cabecera> </app-cabecera>
 
-
+<app-jumbotron titulo="Jugadores" subtitulo="Listado de Jugadores"></app-jumbotron>
 
 <table class="table table-condensed">
-  <thead>
+  <thead class="bg-warning text-muted">
     <tr>
-      <th>usuario</th>
-      <th>cuit</th>
-      <th>sexo</th>
-      <th>gano</th>
+      <th>Alta</th>
+      <th>Correo</th>
+      <th>Usuario</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let jugador of listado" >
-      <td>{{jugador.usuario}} </td>
-      <td>{{jugador.cuit}} </td> 
-      <td>{{jugador.sexo | sexo| uppercase}} </td> 
-      <td>{{jugador.gano}} </td> 
-      
+    <tr *ngFor="let jugador of listado | sortBy:'createdAt':'desc'">
+      <td>{{jugador.createdAt}} </td>
+      <td>{{jugador.mail}} </td>
+      <td>{{jugador.name}} </td>
     </tr>
-   
   </tbody>
 </table>
+<div *ngIf="isLoading" class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<app-footer></app-footer>
